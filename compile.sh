@@ -1,0 +1,1 @@
+javac -d bin -sourcepath src src/com/yahoo/slykhachov/computationalgeometry/VoronoiDelauney.java

@@ -1,0 +1,1 @@
+java -cp bin com/yahoo/slykhachov/computationalgeometry/VoronoiDelauney
