@@ -1,8 +1,5 @@
 package com.yahoo.slykhachov.computationalgeometry.algos;
-/**
-	* High level description of the algorithm can be found @
-	* http://www.geom.uiuc.edu/~samuelp/del_project.html
-	*/
+
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
