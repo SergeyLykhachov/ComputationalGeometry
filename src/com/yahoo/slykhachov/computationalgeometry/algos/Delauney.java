@@ -289,7 +289,7 @@ public class Delauney {
 				}
 			}
 		};
-		Function<Node, Node> func2 = (n) -> {
+		Function<Node, Node> func2 = n -> {
 			List<Node> list = n.getListOfAdjacentVertices();
 			Node node1 = list.get(0);
 			Node node2 = list.get(1);			
@@ -319,7 +319,7 @@ public class Delauney {
 				}
 			}
 		};
-		Function<Node, Node> func3 = (n) -> {
+		Function<Node, Node> func3 = n -> {
 			List<Node> list = n.getListOfAdjacentVertices();
 			Node node1 = list.get(0);
 			Node node2 = list.get(1);

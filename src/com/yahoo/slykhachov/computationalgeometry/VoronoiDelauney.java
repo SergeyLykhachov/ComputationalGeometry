@@ -8,6 +8,7 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -48,7 +49,7 @@ public class VoronoiDelauney {
     }
     private static class MyPanel extends JPanel {
     	private static final long serialVersionUID = 1L;
-		static final int SIZE = 1000;
+		static final Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 		private BufferedImage image;
 		private Random random;
 		private Consumer<Graphics2D> paintStrategy;
@@ -56,7 +57,7 @@ public class VoronoiDelauney {
 		private List<Node> nodeList;
 		private Set<Node> nodeSet;
 		MyPanel() {
-			setPreferredSize(new Dimension(SIZE, SIZE));
+			setPreferredSize(screenDimension);	
 			setBackground(Color.WHITE);
 			random = new Random();
 			addMouseListener(
@@ -114,7 +115,7 @@ public class VoronoiDelauney {
 		}
     	private void paintVoronoi(Graphics2D g2d) {
     		if (nodeList.size() > 0) {
-    			image = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_RGB);
+    			image = new BufferedImage((int) screenDimension.getWidth(), (int) screenDimension.getHeight(), BufferedImage.TYPE_INT_RGB);
         		int px[] = new int[nodeList.size()];
         		int py[] = new int[nodeList.size()];
         		int colors[] = new int[nodeList.size()];
@@ -123,8 +124,8 @@ public class VoronoiDelauney {
         		    py[i] = nodeList.get(i).getY();
         		    colors[i] = random.nextInt(16_777_215);
 				}
-        		for (int x = 0; x < SIZE; x++) {
-        		    for (int y = 0; y < SIZE; y++) {
+        		for (int x = 0; x < screenDimension.getWidth(); x++) {
+        		    for (int y = 0; y < screenDimension.getHeight(); y++) {
         		        int n = 0;
         		        for (int i = 0; i < nodeList.size(); i++) {
         		            if (distance(px[i], x, py[i], y) < distance(px[n], x, py[n], y)) {
@@ -158,7 +159,7 @@ public class VoronoiDelauney {
     		return this.nodeList;
     	}
     	void setIsAllowedToBeDrawUpon(boolean b) {
-    		isAllowedToBeDrawnUpon = b;
+    		this.isAllowedToBeDrawnUpon = b;
     	}
     	boolean isAllowedToBeDrawUpon() {
     		return this.isAllowedToBeDrawnUpon;
@@ -232,7 +233,7 @@ public class VoronoiDelauney {
 					);
 				}
 				nodeList.forEach(n -> n.setVisited(false));
-				Consumer<Graphics2D> painter = g -> panel.paintVoronoi(g);
+				Consumer<Graphics2D> painter = panel::paintVoronoi;
 				panel.setPaintStrategy(
 					painter.andThen(panel::paintPointGraph)
 				);
