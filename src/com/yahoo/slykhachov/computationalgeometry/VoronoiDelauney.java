@@ -110,7 +110,7 @@ public class VoronoiDelauney {
 						g2d.draw(line);
 					}
 				}
-        	    g2d.fill(new Ellipse2D.Double(node.getX() - 5, node.getY() - 5, 10, 10));
+				g2d.fill(new Ellipse2D.Double(node.getX() - 5, node.getY() - 5, 10, 10));
 			}
 		}
     	private void paintVoronoi(Graphics2D g2d) {
