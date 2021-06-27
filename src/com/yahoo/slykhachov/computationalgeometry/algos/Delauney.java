@@ -265,17 +265,9 @@ public class Delauney {
 			);	
 			if (b2 && b3) {
 				if (angle2 < angle3) {
-					if (angle2 < angle1) {
-						return node2;
-					} else {
-						return null;
-					}
+					return angle2 < angle1 ? node2 : null;
 				} else {
-					if (angle3 < angle1) {
-						return node3;
-					} else {
-						return null;
-					}
+					return angle3 < angle1 ? node3 : null;
 				}
 			} else {
 				if (b2 && !b3) {
@@ -352,20 +344,16 @@ public class Delauney {
 		Node leftSideCandidate = leftConvexHull.stream()
 			.min(
 				(n1, n2) -> {
-					if (Integer.compare(n1.getY(), n2.getY()) != 0) {
-						return Integer.compare(n2.getY(), n1.getY());
-					} else {
-						return Integer.compare(n2.getX(), n1.getX());
-					}
+					return Integer.compare(n1.getY(), n2.getY()) != 0
+						? Integer.compare(n2.getY(), n1.getY())
+						: Integer.compare(n2.getX(), n1.getX());
 			}).get();
 		Node rightSideCandidate = rightConvexHull.stream()
 			.min(
 				(n1, n2) -> {
-					if (Integer.compare(n1.getY(), n2.getY()) != 0) {
-						return Integer.compare(n2.getY(), n1.getY());
-					} else {
-						return Integer.compare(n1.getX(), n2.getX());
-					}
+					return Integer.compare(n1.getY(), n2.getY()) != 0
+						? Integer.compare(n2.getY(), n1.getY())
+						: Integer.compare(n1.getX(), n2.getX());
 			}).get();
 		Node[] baseEdge = new Node[] {leftSideCandidate, rightSideCandidate};
 		Node[] tempEdge;
@@ -408,6 +396,7 @@ public class Delauney {
 						}
 					}
 				} while (tempNode != null);
+				
 				if (leftConvexHull.size() == 2) {
 					Node otherLeft = baseEdge[0].getListOfAdjacentVertices().get(0);
 					if (baseEdge[0].getX() < otherLeft.getX()
@@ -475,6 +464,7 @@ public class Delauney {
 							}
 						}
 					} while (tempNode != null);
+					
 					if (rightConvexHull.size() == 2) {
 						Node otherRight = baseEdge[1].getListOfAdjacentVertices().get(0);
 						if (baseEdge[1].getX() > otherRight.getX()
